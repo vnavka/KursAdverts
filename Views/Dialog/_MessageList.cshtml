@@ -1,0 +1,34 @@
+﻿@model AdvertSite.Models.Dialog
+@using AdvertSite.Models
+<ul class="media-list">
+    @foreach (Message message in Model.Messages)
+    {
+        if (message.UserId == Model.ownerId) { ViewBag.Bg = "green"; }
+        else { ViewBag.Bg = "blue"; }
+
+        <li class="media @ViewBag.Bg">
+
+            <div class="media-body">
+
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        @*Add image to user!!*@
+                        @if (message.UserId == Model.ownerId)
+                        { <img class="media-object img-circle " src="~/Content/Images/owner1.jpg" /> }
+                        else
+                        { <img class="media-object img-circle " src="~/Content/Images/user1.jpg" /> }
+                    </a>
+                    <div class="media-body">
+                        @message.Text
+                        <br />
+                        <small class="text-muted">@message.User.Login | @message.Datetime</small>
+                        <hr />
+                    </div>
+                </div>
+
+            </div>
+        </li>
+    }
+
+
+</ul>

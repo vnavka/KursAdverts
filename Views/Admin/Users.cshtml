@@ -1,0 +1,37 @@
+﻿@model IEnumerable<AdvertSite.Models.UserContext>
+
+<h3>Пользователи</h3>
+@{
+    int number=1;
+}
+<div class="col-md-8">
+    <table class="table table-hover">
+        <tr>
+            <th>#</th>
+            <th>Логин</th>
+            <th>Email</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var i in Model)
+        {
+
+            <tr>
+                <td>@number.ToString()</td>
+                <td>@i.Login</td>
+                <td>@i.Email</td>
+                <td>@Html.ActionLink("Просмотреть", "Display", "Account", new { Id = i.Id }, new { @class = "btn btn-primary" })</td>
+                <td>@Ajax.ActionLink("Удалить", "DeleteUser", "Admin", new { Id = i.Id }, new AjaxOptions { UpdateTargetId = @number.ToString() }, new { @class = "btn btn-primary" })</td>
+                <td id="@number.ToString()">&nbsp;</td>
+            </tr>
+            number++;
+        }
+        <tr></tr>
+    </table>
+</div>
+
+
+<div class="col-md-4">
+
+</div>

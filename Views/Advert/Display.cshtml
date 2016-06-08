@@ -1,0 +1,97 @@
+﻿@model AdvertSite.Models.Advert
+
+<div class="container">
+
+    <div class="row">
+
+        <!-- Blog Post Content Column -->
+        <div class="col-md-7">
+
+            <!-- Blog Post -->
+            <!-- Title -->
+            <h1>@Model.Name</h1>
+
+            <!-- Author -->
+            <p class="lead">
+                Автор: <a href="@Url.Action("Display", "Account", new { Id = Model.UserId })">@Model.User.Login</a>
+            </p>
+
+            <hr>
+
+            <!-- Date/Time -->
+            <p><span class="glyphicon glyphicon-time"></span>@Model.PublicationDate</p>
+
+            <hr>
+
+            <!-- Preview Image -->
+            @if (Model.Photo != null)
+            {
+            <img  width="400" height="400"  src="@Url.Content("~/Content/Images/"+Model.Photo)" />
+            }
+            else
+            {
+                <img  width="400" height="400" src="@Url.Content("~/Content/Images/noimage.jpeg")" />
+            }
+            
+
+            <hr>
+
+            <!-- Post Content -->
+            <p>@Model.Description</p>
+
+
+
+        </div>
+
+        <!-- Blog Sidebar Widgets Column -->
+        <div class="col-md-3" >
+            <br/>
+            @if (Model.Price !=null)
+            {
+                <br />
+                    <h2>@Model.Price грн</h2>
+            }
+
+            <br/>
+            <br />
+
+            <!-- Blog Search Well -->
+            @if (User.IsInRole("Admin"))
+            {
+                <br />
+                @Ajax.ActionLink("Удалить объявление", "DeleteAdvert", "Admin", new { Id = Model.Id }, new AjaxOptions { UpdateTargetId = "delres" }, new { @class = "btn btn-primary" })
+                <br/>
+                <span id="delres"></span>
+            }
+            else if (User.Identity.IsAuthenticated)
+            {
+                if (User.Identity.Name == Model.User.Login)
+                {
+                    <br />
+                    <a href="@Url.Action("Edit", new { Id=Model.Id })" class="btn btn-primary" style="color:white;">Редактировать объявление</a>
+                    <br />
+                    <br />
+                    <a href="@Url.Action("Delete", new { Id=Model.Id })" class="btn btn-primary" style="color:white;">Удалить объявление</a>
+                }
+                else
+                {
+                    <br />
+                    @Html.ActionLink("Написать автору", "AddDialog","Dialog", new { username = User.Identity.Name, advertid = Model.Id }, new { @class="btn btn-primary", @style="color:white;" })
+                }
+            }
+            else
+            {
+                <br />
+                <a href="#" class="btn btn-primary disabled" title="Пожалуйста, авторизируетесь" style="color:white;">Написать автору</a>
+            }
+
+
+
+
+
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div>

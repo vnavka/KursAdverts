@@ -1,0 +1,24 @@
+﻿@model IEnumerable<AdvertSite.Models.Category>
+
+<h3>Категории</h3>
+
+<div class="col-md-8">
+    <div id="catsTable">
+        @Html.Partial("_CatsTable")
+    </div>
+    
+    @using (Ajax.BeginForm("CatAdd", new AjaxOptions { UpdateTargetId = "catsTable" }))
+    {
+        <div class="input-group">
+            @Html.TextBox("name", null, new { @class = "form-control", placeholder = "Введите название категории"})
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">Добавить категорию</button>
+            </span>
+        </div>
+    }
+</div>
+
+
+<div class="col-md-4">
+
+</div>

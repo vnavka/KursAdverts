@@ -1,0 +1,68 @@
+﻿@model AdvertSite.Models.Advert
+<hgroup class="title">
+    <h2>Добавление объявления</h2>
+</hgroup>
+<p class="message-success">@ViewBag.StatusMessage</p>
+
+@using (Html.BeginForm("AdvertCreate", "Advert", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+
+        <!-- Form Name -->
+        <!-- Text input-->
+
+        
+        <div class="control-group">
+            @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(m => m.Name, new { placeholder = "Введите имя объявления", @class = "input-xlarge" })
+            </div>
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.CategoryId, new { @class = "control-label" })
+            <div class="controls">
+                @Html.DropDownListFor(m => m.CategoryId, (IEnumerable<SelectListItem>)ViewBag.CategoryId)
+            </div>
+            @Html.ValidationMessageFor(m => m.CategoryId)
+
+
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.Description, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextAreaFor(m => m.Description, new { placeholder = "Описание", @class = "input-xlarge" })
+            </div>
+            @Html.ValidationMessageFor(m => m.Description)
+        </div>
+
+        <div class="control-group" >
+             @Html.Label("Изображение", new { @class = "control-label" })
+            <div class="controls">
+                <input type="file" name="image" class="input-xlarge" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.Price, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Price, new { placeholder = "Введите цену (грн)", @class = "input-xlarge" })
+            </div>
+            @Html.ValidationMessageFor(m => m.Price)
+
+
+        </div>
+
+        <!-- Button -->
+        <div class="control-group">
+            <label class="control-label" for="submit"></label>
+            <div class="controls">
+                <button id="submit" name="submit" class="btn btn-primary">Добавить объявление</button>
+            </div>
+        </div>
+
+    </fieldset>
+}

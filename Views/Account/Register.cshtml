@@ -1,0 +1,61 @@
+﻿@model AdvertSite.Models.RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<hgroup class="title">
+    <h2>Создание нового аккаунта</h2>
+</hgroup>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+
+        <!-- Form Name -->
+
+        <!-- Text input-->
+        <div class="control-group">
+            @Html.LabelFor(m => m.UserName, new { @class="control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.UserName, new { placeholder="Введите имя", @class="input-xlarge" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+            <div class="controls">
+                @Html.PasswordFor(m => m.Password, new { placeholder = "Введите пароль", @class = "input-xlarge" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+            <div class="controls">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Подтвердите пароль", @class = "input-xlarge" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "input-xlarge" })
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="control-group">
+            <label class="control-label" for="submit"></label>
+            <div class="controls">
+                <button id="submit" name="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </div>
+        </div>
+
+    </fieldset>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

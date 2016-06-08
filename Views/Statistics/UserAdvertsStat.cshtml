@@ -1,0 +1,28 @@
+﻿@model IEnumerable<AdvertSite.Models.Advert>
+@{
+    int? max = Model.Max(c => c.ViewNumber);
+}
+
+<div class="panel panel-primary" style="width:100%; margin:20px">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Статистика просмотров объявлений
+        </h3>
+    </div>
+    <div class="panel-body" style="margin:0px; width:115%;">
+        <input type="hidden" value="@max" name="val_max" />
+        <div id="Main">
+            @foreach (var item in Model)
+            {
+                
+                @item.Name
+                <br/>
+                <a name="poll_bar" href="@Url.Action("Display", "Advert", new { Id=item.Id })">&nbsp;</a> <span name="poll_val">@item.ViewNumber</span><br />
+            }
+
+        </div>
+
+    </div>
+</div>
+@Scripts.Render("~/bundles/Statistic")
+

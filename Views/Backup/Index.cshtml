@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Резервное копирование</h3>
+
+<table>
+    <tr>
+        <td>@Ajax.ActionLink("Создать резервную копию", "Create", "Backup",null, new AjaxOptions { UpdateTargetId = "createmessage" }, new { @class = "btn btn-primary" })</td>
+
+        <td id="createmessage"></td>
+    </tr>
+    <tr>
+        <td>@Ajax.ActionLink("Восстановить базу данных", "Restore", "Backup", null, new AjaxOptions { UpdateTargetId = "restoremessage" }, new { @class = "btn btn-primary" })</td>
+        <td id="restoremessage"></td>
+    </tr>
+</table>

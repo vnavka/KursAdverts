@@ -1,0 +1,85 @@
+﻿@model PagedList.IPagedList<AdvertSite.Models.Advert>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+}
+<link rel="stylesheet" type="text/css" media="screen" href="http://silviomoreto.github.io/bootstrap-select/stylesheets/bootstrap-select.css">
+@using (@Html.BeginForm("Search","Home",FormMethod.Get))
+{
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="span3">
+                    @Html.DropDownList("SortList")
+                </div>
+                <div class="span3">
+                    @Html.DropDownList("Category","Без категории")
+                </div>
+                <div class="span4">
+                    @Html.TextBox("search", null, new { placeholder = "Что нужно найти?" })
+                    <button type="submit" class="btn btn-primary">Поиск</button>
+                </div>
+
+                
+                        
+                
+            </div>
+        </div>
+    </div>
+}
+
+<br />
+
+@foreach (var item in Model)
+{
+
+    <a href="@Url.Action("Display", "Advert", new { Id=item.Id })" class="advert-link">
+        <div class="well advert-link">
+            <div class="media ">
+                <div class="pull-left ">
+                    @if (item.Photo != null)
+                    {
+                        <img class="media-object" width="200" height="200" src="@Url.Content("~/Content/Images/"+item.Photo)" />
+                    }
+                    else
+                    {
+                        <img class="media-object" width="200" height="200" src="@Url.Content("~/Content/Images/noimage.jpeg")" />
+                    }
+
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">@item.Name</h4>
+
+                    <p style="word-wrap:break-word;">
+                        @item.Description
+                    </p>
+                    <ul class="list-inline list-unstyled">
+                        <li><span><i class="glyphicon glyphicon-calendar"></i>@item.PublicationDate</span></li>
+                        <li>|</li>
+                        <li><span><i class="glyphicon"></i>@item.Category.Name</span></li>
+                        <li>|</li>
+                        <li><span><i class="glyphicon"></i>Просмотров @item.ViewNumber </span></li>
+
+                        @if (item.Price != null)
+                        {
+                            <li>|</li>
+                            <li>@item.Price грн</li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </a>
+
+}
+
+<br />
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+
+
+

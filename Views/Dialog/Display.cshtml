@@ -1,0 +1,47 @@
+﻿@model AdvertSite.Models.Dialog
+
+
+    <div class="container">
+        <div class="row " style="padding-top:40px;">
+
+            <div class="col-md-8">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <a href="@Url.Action( "Display", "Advert", new { Id=Model.AdvertId })">@Model.Advert.Name</a>
+                    </div>
+                    <div class="panel-body" id="messagelist">
+                        @Html.Partial("_MessageList")
+                    </div>
+                    <div class="panel-footer">
+                        @using (Ajax.BeginForm("MessageSent", new AjaxOptions { UpdateTargetId = "messagelist",OnComplete="onComplete()"}))
+                        {
+                            @Html.Hidden("dialog_id",Model.Id)
+                            @Html.Hidden("username",User.Identity.Name)
+                            <div class="input-group">
+                                @Html.TextArea("message", new { @class="input-sent form-control",placeholder="Введите сообщение",id="message" })
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info" type="submit">Отправить</button>
+                                </span>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<script>
+    window.onload = function () {
+        $("textarea#message").focus();
+        $('html,body').animate({ scrollTop: $("textarea#message").offset().top }, 'slow');
+
+    }
+
+    function onComplete() {
+        $("textarea#message").val("");
+        $("textarea#message").focus();
+        $('html,body').animate({ scrollTop: $("textarea#message").offset().top }, 'slow');
+
+    };
+</script>

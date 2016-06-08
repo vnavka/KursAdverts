@@ -1,0 +1,25 @@
+﻿@model IEnumerable<AdvertSite.Models.Category>
+@{
+    int number = 1;
+}
+<table class="table table-condensed">
+    <tr class ="success">
+        <th>#</th>
+        <th>Название</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var i in Model)
+    {
+
+        <tr >
+            <td>@number.ToString()</td>
+            <td>@i.Name</td>
+            <td>@Ajax.ActionLink("Удалить", "DeleteCat", "Admin", new { Id = i.Id }, new AjaxOptions { UpdateTargetId = @number.ToString() }, new { @class = "btn btn-primary" })</td>
+            <td id="@number.ToString()">&nbsp;</td>
+        </tr>
+        number++;
+    }
+
+
+</table>

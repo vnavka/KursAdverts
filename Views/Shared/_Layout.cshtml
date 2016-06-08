@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/Custom")
+    @Scripts.Render("~/bundles/jquery")
+
+
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li>@Html.ActionLink("Главная","Index","Home")</li>
+                                @if ( User.IsInRole("Admin"))
+                                {
+                                    <li class="divider-vertical"></li>
+                                    <li @*class="active"*@>@Html.ActionLink("Пользователи", "Users", "Admin")</li>
+                                    <li class="divider-vertical"></li>
+                                    <li>@Html.ActionLink("Категории", "Categories", "Admin")</li>
+                                    <li class="divider-vertical"></li>
+                                    <li>@Html.ActionLink("Статистика", "UserStat", "Statistics")</li>
+                                    <li class="divider-vertical"></li>
+                                    <li>@Html.ActionLink("Бекап", "Index", "Backup")</li>
+                                    <li class="divider-vertical"></li>
+                                }
+                                else if (Request.IsAuthenticated)
+                                {
+                                    <li class="divider-vertical"></li>
+                                    <li @*class="active"*@>@Html.ActionLink("Мои объявления", "Index", "Advert")</li>
+                                    <li class="divider-vertical"></li>
+                                    <li>@Html.ActionLink("Мои сообщения", "Index", "Dialog")</li>
+                                    <li class="divider-vertical"></li>
+                                    <li>@Html.ActionLink("Статистика", "UserAdvertsStat", "Statistics")</li>
+                                    <li class="divider-vertical"></li>
+                                }
+                                
+
+
+                            </ul>
+                            <ul class="nav pull-right">
+                                
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <li>
+                                        <div class="authorized">
+                                            Привет, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                            &nbsp;&nbsp;
+                                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
+                                            }
+                                        </div>
+
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        @Html.ActionLink("Регистрация","Register","Account")
+                                    </li>
+                                    <li class="divider-vertical"></li>
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Войти<strong class="caret"></strong></a>
+                                        @Html.Partial("_LoginPartial")
+                                    </li>
+                                }
+
+                            </ul>
+                        </div>
+                        <!--/.nav-collapse -->
+                    </div>
+                    <!--/.container-fluid -->
+                </div>
+                <!--/.navbar-inner -->
+            </div>
+            <!--/.navbar -->
+
+        </div>
+    </header>
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+            </div>
+        </div>
+    </footer>
+
+    
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

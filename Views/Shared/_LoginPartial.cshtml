@@ -1,0 +1,34 @@
+﻿
+<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        if(ViewBag.ValSummary !=null)
+        {
+            <div class="validation-summary-errors">
+                @ViewBag.ValSummary
+            </div>
+        }
+        
+        @Html.TextBox("UserName", null, new { style = "margin-bottom: 15px;", placeholder = "Логин" })
+        @Html.Password("Password", null, new { style = "margin-bottom: 15px;", placeholder = "Пароль" })
+        @Html.CheckBox("RememberMe", false, new { style = "float: left; margin-right: 10px;" })
+    <label class="string optional">Remember Me</label>
+        
+
+
+
+
+        <input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Войти">
+    }
+
+</div>
+
+
+
+
+
+
+
+
+

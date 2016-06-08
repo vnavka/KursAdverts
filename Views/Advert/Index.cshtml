@@ -1,0 +1,78 @@
+﻿@model PagedList.IPagedList<AdvertSite.Models.Advert>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+}
+
+<hgroup class="title">
+    <h2>Управление объявлениями</h2>
+</hgroup>
+@Html.ActionLink("Добавить объявление", "AdvertCreate", "Advert", new { @class = "btn btn-primary", style = "color:white" });
+<br />
+@if (ViewBag.Message != null)
+{
+    if (ViewBag.IsPositive == true)
+    {
+        <p class="message-success">@ViewBag.Message</p>
+    }
+    else
+    {
+        <p class="message-error">@ViewBag.Message</p>
+    }
+}
+
+<br />
+
+@foreach (var item in Model)
+{
+
+    <a href="@Url.Action("Display", "Advert", new { Id=item.Id })" class="advert-link">
+        <div class="well advert-link">
+            <div class="media ">
+                <div class="pull-left ">
+                    @if (item.Photo != null)
+                    {
+                        <img class="media-object" width="200" height="200" src="@Url.Content("~/Content/Images/"+item.Photo)" />
+                    }
+                    else
+                    {
+                        <img class="media-object" width="200" height="200" src="@Url.Content("~/Content/Images/noimage.jpeg")" />
+                    }
+
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">@item.Name</h4>
+
+                    <p style="word-wrap:break-word;">
+                        @item.Description
+                    </p>
+                    <ul class="list-inline list-unstyled">
+                        <li><span><i class="glyphicon glyphicon-calendar"></i>@item.PublicationDate</span></li>
+                        <li>|</li>
+                        <li><span><i class="glyphicon"></i>@item.Category.Name</span></li>
+                        <li>|</li>
+                        <li><span><i class="glyphicon"></i>Просмотров @item.ViewNumber </span></li>
+
+                        @if (item.Price != null)
+                        {
+                            <li>|</li>
+                            <li>@item.Price грн</li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </a>
+
+}
+
+<br />
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+
+
+

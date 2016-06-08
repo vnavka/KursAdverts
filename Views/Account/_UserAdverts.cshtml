@@ -1,0 +1,7 @@
+﻿@model IEnumerable<AdvertSite.Models.Advert>
+
+@foreach (var item in Model)
+{
+    <br />
+    <a class="text-primary" href="@Url.Action("Display", "Advert", new { Id=item.Id })">@item.Name</a>
+}

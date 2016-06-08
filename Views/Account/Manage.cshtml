@@ -1,0 +1,89 @@
+﻿@model AdvertSite.Models.UserContext
+
+
+<hgroup class="title">
+    <h3>Управление аккаунтом</h3>
+</hgroup>
+
+<div class="container">
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <tr>
+                <th colspan="2" style="text-align:center;">Основные данные</th>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Login)</td>
+                <td>@Html.DisplayFor(m => m.Login)</td>
+            </tr>
+            <tr>
+                <td><label>Дата регистрации</label></td>
+                <td>@ViewBag.Creationdate</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Email)</td>
+                <td>@Html.DisplayFor(m => m.Email)</td>
+            </tr>
+
+            <tr>
+                <td>Количество объявлений</td>
+                <td>@ViewBag.AdvertCount</td>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align:center;">&nbsp;</th>
+            </tr>
+        </table>
+
+            @using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "messageBlock" }))
+            {
+                <table class="table table-striped">
+                    <tr>
+                        <th colspan="2" style="text-align:center;">Дополнительные данные</th>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(m => m.Name)</td>
+                        <td>@Html.TextBoxFor(m => m.Name, new { placeholder = "Введите имя" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(m => m.Surname)</td>
+                        <td>@Html.TextBoxFor(m => m.Surname, new { placeholder = "Введите фамилию" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(m => m.City)</td>
+                        <td>@Html.TextBoxFor(m => m.City, new { placeholder = "Введите населенный пункт" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(m => m.Phone)</td>
+                        <td>@Html.TextBoxFor(m => m.Phone, new { placeholder = "Введите номер телефона" })
+                            @Html.ValidationMessageFor(m => m.Phone)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button id="submit" type="submit" class="btn btn-primary">Сохранить данные</button>
+                        </td>
+
+                        <td id="messageBlock"></td>
+                    </tr>
+                </table>
+            }
+            
+
+
+        
+        @Html.ActionLink("Изменить пароль", "ChangePassword", "Account", new { @class="btn btn-primary",style="color:white"})
+
+    </div>
+    <div class="col-md-6">
+        <div class="image-block"></div>
+    </div>
+
+</div>
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

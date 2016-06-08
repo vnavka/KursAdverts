@@ -1,0 +1,33 @@
+﻿@model IEnumerable<AdvertSite.Models.Dialog>
+
+<h3>Найден @Model.Count() диалогов</h3>
+<br />
+<br />
+
+@foreach (var item in Model)
+{
+
+    <a href="@Url.Action("Display", "Dialog", new { Id=item.Id })" class="advert-link">
+        <div class="well advert-link">
+            <div class="media ">
+                <div class="pull-left ">
+
+                </div>
+                <div class="media-body">
+                    <p style="word-wrap:break-word;">
+                        <b>@item.Messages.Last().Text</b>   <i>от @item.Messages.Last().User.Login</i>
+                    </p>
+                    <ul class="list-inline list-unstyled">
+                        <li><span><i class="glyphicon"></i>@item.Owner.Login</span></li>
+                        <li>|</li>
+                        <li><span><i class="glyphicon"></i>@item.User.Login </span></li>
+                        <li>|</li>
+                        <li>Обновлено @item.UpdateDate</li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </a>
+
+}

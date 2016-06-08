@@ -1,0 +1,79 @@
+﻿@model AdvertSite.Models.UserContext
+
+
+<hgroup class="title">
+    <h3>Информация о пользователе</h3>
+</hgroup>
+
+<div class="container">
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <tr>
+                <th colspan="2" style="text-align:center;">Основные данные</th>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Login)</td>
+                <td>@Html.DisplayFor(m => m.Login)</td>
+            </tr>
+            <tr>
+                <td><label>Дата регистрации</label></td>
+                <td>@ViewBag.Creationdate</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Email)</td>
+                <td>@Html.DisplayFor(m => m.Email)</td>
+            </tr>
+
+            <tr>
+                <td>Количество объявлений</td>
+                <td>@ViewBag.AdvertCount</td>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align:center;">&nbsp;</th>
+            </tr>
+        </table>
+
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2" style="text-align:center;">Дополнительные данные</th>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Name)</td>
+                    <td>@Html.DisplayFor(m => m.Name)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Surname)</td>
+                    <td>@Html.DisplayFor(m => m.Surname)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.City)</td>
+                    <td>@Html.DisplayFor(m => m.City)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Phone)</td>
+                    <td>
+                        @Html.DisplayFor(m => m.Phone)
+                </td>
+            </tr>
+
+        </table>
+        @Ajax.ActionLink("Показать объявления пользователя", "UserAdverts", "Account", new { Id = Model.Id }, new AjaxOptions { UpdateTargetId = "useradverts" }, new { @class = "btn btn-primary", style = "color:white" })
+        
+    </div>
+    <div class="col-md-6">
+        <div class="image-block"></div>
+    </div>
+    <div class="col-md-8">
+        <div id="useradverts"></div>
+    </div>
+
+</div>
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
